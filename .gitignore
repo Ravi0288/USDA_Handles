@@ -1,0 +1,10 @@
+__pycache__/
+.Python
+.build
+.dist
+env
+venv
+logs/*
+media
+TEMP/*
+certificates

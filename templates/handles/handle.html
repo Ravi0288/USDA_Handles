@@ -8,37 +8,19 @@
 {% endblock header %}
 
 {% block menu %}
-    <a href="{% url 'user-create' %}">Create User</a>
-    <a href="{% url 'group-create' %}">Create Group</a>
-    <a href="{% url 'user-list' %}">List Users</a>
-    <a href="{% url 'group-list' %}">List Groups</a>
-    <a href="{% url 'mint-handles' %}">Mint Handle</a>
 {% endblock menu %}
 
 {% block body %}
     <div class="container">
         <div id="submitButton">
-            <div style="display: inline;">
-                 <span style="float: inline-start;">
-                    <!-- This button will open the modal -->
-                    <h4>Enter Custom URL to Proceed</h4>
-                    <button id="openModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal">
-                        Mint-Handle With Custom URL
-                    </button>
-                 </span>
-
-                <span style="float: inline-end;">
-                    <!-- This button will not open the modal -->
-                    <h4>Proceed With Default URL</h4>
-                    <button id="submitDefault" type="button" onclick="accessUrl()" class="btn btn-primary" data-target="#inputModal">
-                        Mint-Handle With Default URL
-                    </button>
-                </span>
-
-            </div>
+            <!-- This button will open the modal -->
+            <h4>Click This Button and Enter URL to Proceed</h4>
+            <button id="openModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal">
+                Mint-Handle
+            </button>
         </div>
 
-        <div id="postSubmit"></div>
+        <div id="postSubmit" style="align-self: auto; margin: auto; padding: auto;"></div>
 
         <!-- Modal -->
         <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel" aria-hidden="true">
@@ -78,7 +60,7 @@
         // Hide the button and insert text when clicked
         document.getElementById('openModalButton').onclick = function() {
             this.style.display = 'none';
-            document.getElementById('submitDefault').style.display='none';
+            document.getElementById('submitButton').style.display='none';
             document.getElementById('postSubmit').innerText = 'Please wait. Loading .....';
         };
 
@@ -92,5 +74,28 @@
             // Submit the form after closing the modal
             this.submit();
         };
+
+        // Make elements visible if modal is closed without submission
+        $('#inputModal').on('hidden.bs.modal', function (e) {
+            if (!document.getElementById('inputForm').submitted) {
+                document.getElementById('postSubmit').style.display = 'none';
+                document.getElementById('submitButton').style.display = 'inline';
+                document.getElementById('openModalButton').style.display = 'inline';
+            }
+        });
+
+        // Flag to track form submission
+        document.getElementById('inputForm').submitted = false;
+        document.getElementById('inputForm').onsubmit = function(event) {
+            event.preventDefault();  // Prevent the default form submission
+            this.submitted = true;
+            
+            // Close the modal
+            $('#inputModal').modal('hide');
+            
+            // Submit the form after closing the modal
+            this.submit();
+        };
+
     </script>
 {% endblock %}

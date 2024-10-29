@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import HandleViewSet, mint_handles, mint_handle_main_function
+from .handle import HandleViewSet, mint_handles, mint_handle_main_function
 
 router = DefaultRouter()
 # router.register('', HandleViewSet, basename='handles')
