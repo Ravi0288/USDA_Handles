@@ -123,12 +123,8 @@ HANDLE_DB_PORT = os.environ['HANDLE_DB_PORT']
 
 DATABASES = {
     'default': {
-        'ENGINE': HANDLE_DB_ENGINE,
-        'NAME': HANDLE_DB_NAME,
-        'USER': HANDLE_DB_USER,
-        'PASSWORD': HANDLE_DB_PASSWORD,
-        'HOST': HANDLE_DB_HOST,
-        'PORT': HANDLE_DB_PORT,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
